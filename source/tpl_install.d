@@ -1,4 +1,4 @@
-module tplInstall;
+module tpl_install;
 
 import std.file : copy, dirEntries, exists, isFile, readText, thisExePath, write, mkdirRecurse,SpanMode;
 import std.path : buildPath, dirName, setExtension, stripExtension, relativePath;

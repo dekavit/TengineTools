@@ -4,7 +4,7 @@ import std.process : environment;
 import std.stdio : writeln;
 import std.string : replace;
 
-import tplInstall;
+import tpl_install;
 import init;
 import parser;
 

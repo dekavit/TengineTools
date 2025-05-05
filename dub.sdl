@@ -1,0 +1,5 @@
+name "tengine_tools"
+description "A minimal D application."
+authors "dekavit"
+copyright "Copyright © 2025, dekavit"
+license "proprietary"

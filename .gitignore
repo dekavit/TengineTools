@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/tengine_tools
+tengine_tools.so
+tengine_tools.dylib
+tengine_tools.dll
+tengine_tools.a
+tengine_tools.lib
+tengine_tools-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

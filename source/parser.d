@@ -21,6 +21,9 @@ string[string] argsParser(string[] args){
         case "help":
             vars["command"] = args[1];
             break;
+        case "install-templates":
+            vars["command"] = args[1];
+            break;
         default:
             write("tengine-tools: unknown command");
             foreach (key; args) {

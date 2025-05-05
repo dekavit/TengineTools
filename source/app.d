@@ -1,6 +1,6 @@
-import std.stdio;
-import std.file;
-import std.string;
+import std.stdio : writeln;
+import std.file : readText, write, mkdirRecurse;
+import std.string : replace;
 
 void main(string[] args) {
     if (args.length < 2) {
@@ -9,22 +9,18 @@ void main(string[] args) {
     }
 
     string name = args[1];
-    string code = generateCTemplate(name);
 
-    string path = "output/" ~ name ~ ".c";
+    // テンプレート読み込み
+    string templatePath = "templates/hello.tpl";
+    string templateText = readText(templatePath);
+
+    // テンプレート中の {{name}} を置換
+    string code = templateText.replace("{{name}}", name);
+
+    // 出力先に書き込み
+    string outputPath = "output/" ~ name ~ ".c";
     mkdirRecurse("output");
-    std.file.write(path, code);
+    write(outputPath, code);
 
-    writeln("Generated: ", path);
-}
-
-string generateCTemplate(string name) {
-    return q{
-#include <stdio.h>
-
-int main() {
-    printf("Hello, World!\n");
-    return 0;
-}
-};
+    writeln("Generated: ", outputPath);
 }

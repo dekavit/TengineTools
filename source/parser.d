@@ -12,19 +12,19 @@ string[string] argsParser(string[] args){
             vars["command"] = args[1];
             vars["projectName"] = args[2];
             break;
-        case "run":
-            vars["comannd"] = args[1];
-            break;
+        // case "run":
+        //     vars["comannd"] = args[1];
+        //     break;
         case "set":
             if(args.length < 3) return errorMsg();
             vars["command"] = args[1];
             vars["tenginePath"] = args[2];
             break;
-        case "build":
-            vars["command"] = args[1];
-            break;
-        case "help":
-            vars["command"] = args[1];
+        // case "build":
+        //     vars["command"] = args[1];
+        //     break;
+        // case "help":
+        //     vars["command"] = args[1];
             break;
         case "install-templates":
             vars["command"] = args[1];
@@ -43,7 +43,8 @@ string[string] argsParser(string[] args){
 
 string[string] errorMsg(){
     writeln("Usage: tengine-tools [command]");
-    writeln("command: build, init <project-name>, run, set <tengine-lib-path>, help");
+    // writeln("command: build, init <project-name>, run, set <tengine-lib-path>, help");
+    writeln("command: init <project-name>, set <tengine-lib-path>");
     string[string] res;
     res["command"] = "error";
     return res;

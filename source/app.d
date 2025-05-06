@@ -11,15 +11,15 @@ void main(string[] args) {
 
     templateInstall();
     switch(vars["command"]){
-        case "build":
-            break;
-        case "help":
-            break;
+        // case "build":
+        //     break;
+        // case "help":
+        //     break;
         case "init":
             generateTemplates(vars);
             break;
-        case "run":
-            break;
+        // case "run":
+        //     break;
         case "set":
             tengineLibSet(vars);
             break;

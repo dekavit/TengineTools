@@ -1,2 +1,3 @@
 name "{{projectName}}"
 targetPath "build"
+dependency "tengine" path="{{tenginePath}}"

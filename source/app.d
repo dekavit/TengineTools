@@ -1,12 +1,9 @@
-import std.file : readText, write, mkdirRecurse;
-import std.path : buildPath;
-import std.process : environment;
-import std.stdio : writeln;
-import std.string : replace;
 
 import tpl_install;
 import init;
 import parser;
+import set;
+
 
 void main(string[] args) {
 
@@ -14,16 +11,17 @@ void main(string[] args) {
 
     templateInstall();
     switch(vars["command"]){
-        case "init":
-            string home = environment.get("HOME", "~");
-            string tplPath = buildPath(home, ".tengine_tools/templates");
-            generateTemplates(vars, "./");
-            break;
-        case "run":
-            break;
         case "build":
             break;
         case "help":
+            break;
+        case "init":
+            generateTemplates(vars);
+            break;
+        case "run":
+            break;
+        case "set":
+            tengineLibSet(vars);
             break;
         case "error":
             break;

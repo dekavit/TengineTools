@@ -15,6 +15,11 @@ string[string] argsParser(string[] args){
         case "run":
             vars["comannd"] = args[1];
             break;
+        case "set":
+            if(args.length < 3) return errorMsg();
+            vars["command"] = args[1];
+            vars["tenginePath"] = args[2];
+            break;
         case "build":
             vars["command"] = args[1];
             break;
@@ -38,7 +43,7 @@ string[string] argsParser(string[] args){
 
 string[string] errorMsg(){
     writeln("Usage: tengine-tools [command]");
-    writeln("command: init <project_name>, run, build, help");
+    writeln("command: build, init <project-name>, run, set <tengine-lib-path>, help");
     string[string] res;
     res["command"] = "error";
     return res;

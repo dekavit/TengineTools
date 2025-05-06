@@ -1,19 +1,34 @@
 module init;
 
-import std.file : dirEntries, exists, isFile, readText, write, mkdirRecurse,SpanMode;
+import std.file : dirEntries, exists, isFile, readText, thisExePath, write, mkdirRecurse,SpanMode;
+import std.json;
 import std.path : buildPath, dirName, setExtension, stripExtension, relativePath;
 import std.process : environment;
 import std.string : replace;
 import std.stdio : writeln;
 
-void generateTemplates(string[string] vars, string outputRoot){
+void generateTemplates(string[string] vars){
     string home = environment.get("HOME", "~");
     string tplPath = buildPath(home,".tengine-tools/templates");
+    string configPath = buildPath(home,".tengine-tools/config.json");
     if(!exists(tplPath)){
         writeln("tengine-tools: template not found");
         return;
     }
-    outputRoot = buildPath(outputRoot,vars["projectName"]);
+    if(!exists(configPath)){
+        writeln("tengine-tools: config.json not found.");
+        writeln("Usage: tengine-tools set <tengine-lib-path>");
+        return;
+    }
+    string json_string = readText(configPath);
+    JSONValue json = parseJSON(json_string);
+    if(json["tenginePath"].str==null){
+        writeln("tengine-tools: config.json error");
+        writeln("Usage: tengine-tools set <tengine-lib-path>");
+        return;
+    }
+    vars["tenginePath"] = json["tenginePath"].str;
+    string outputRoot = buildPath("./",vars["projectName"]);
     mkdirRecurse(outputRoot);
     foreach (entry; tplPath.dirEntries(SpanMode.depth)) {
         if(!entry.isFile) continue;

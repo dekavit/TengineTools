@@ -1,8 +1,9 @@
 module init;
 
-import std.file : dirEntries, exists, isFile, readText, thisExePath, write, mkdirRecurse,SpanMode;
+import std.array;
+import std.file : copy, dirEntries, exists, isFile, readText, thisExePath, write, mkdirRecurse,SpanMode;
 import std.json;
-import std.path : buildPath, dirName, setExtension, stripExtension, relativePath;
+import std.path : buildPath, dirName, pathSplitter, setExtension, stripExtension, relativePath;
 import std.process : environment;
 import std.string : replace;
 import std.stdio : writeln;
@@ -35,9 +36,14 @@ void generateTemplates(string[string] vars){
         string relPath = relativePath(entry.name, tplPath);
         string outPath = buildPath(outputRoot, relPath);
         mkdirRecurse(outPath.dirName);
-        string tpl = readText(entry.name);
-        string result = applyTemplate(tpl,vars);
-        write(outPath, result);
+        auto relRoot = pathSplitter(relPath).array[0];
+        if(relRoot=="assets"){
+            copy(entry.name, outPath);
+        }else{
+            string tpl = readText(entry.name);
+            string result = applyTemplate(tpl,vars);
+            write(outPath, result);
+        }
         writeln("Generated: ", outPath);
     }
 }
